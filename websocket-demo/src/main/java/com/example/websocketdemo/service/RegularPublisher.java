@@ -7,6 +7,6 @@ public class RegularPublisher {
 
     public String publishEmergency() {
         System.out.println("publishing message");
-        return "This is Message from PM and it is Atma nirbhar bharat";
+        return "This is Message from PM!!!";
     }
 }
