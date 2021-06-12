@@ -9,9 +9,12 @@ import org.springframework.integration.endpoint.MethodInvokingMessageSource;
 import org.springframework.integration.websocket.ServerWebSocketContainer;
 import org.springframework.integration.websocket.outbound.WebSocketOutboundMessageHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.socket.server.HandshakeHandler;
 import org.springframework.web.socket.server.standard.TomcatRequestUpgradeStrategy;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Message publisher service that publishes messages every 10 seconds
@@ -40,7 +43,6 @@ public class WebSocketPublisherService {
         methodInvokingMessageSource.setMethodName("publishEmergency");
 
         WebSocketOutboundMessageHandler webSocketOutboundMessageHandler = new WebSocketOutboundMessageHandler(serverWebSocketContainer);
-        webSocketOutboundMessageHandler.afterPropertiesSet();
 
         StandardIntegrationFlow standardIntegrationFlow = IntegrationFlows.from(methodInvokingMessageSource,
                 polling -> polling.poller(pollerFactory -> pollerFactory.fixedRate(10000)))
@@ -54,4 +56,13 @@ public class WebSocketPublisherService {
 
         register.start();
     }
+
+    /*
+    initialize websocket dynamically at start up time
+     */
+    @PostConstruct
+    private void initializeWSAtStartup(){
+        startPublishing("/staticws");
+    }
+
 }

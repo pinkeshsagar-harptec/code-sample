@@ -6,8 +6,6 @@ import org.springframework.integration.config.EnableIntegration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @SpringBootApplication
-@EnableWebSocket
-@EnableIntegration
 public class WebsocketDemoApplication {
 
 	public static void main(String[] args) {

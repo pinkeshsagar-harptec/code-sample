@@ -9,9 +9,11 @@ import okhttp3.Request;
 public class OkHttpWebSocketClient {
 
     public static void main(String[] args) {
-        String url = "ws://localhost:8080/examples";
+        String dynamicUrl = "ws://localhost:8080/examples";
+        String notWorkingWSURL = "ws://localhost:8080/staticws";
+        String workingWSURL = "ws://localhost:8080/staticws/websocket";
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(workingWSURL).build();
         StringListener stringListener = new StringListener();
         client.newWebSocket(request, stringListener);
 
