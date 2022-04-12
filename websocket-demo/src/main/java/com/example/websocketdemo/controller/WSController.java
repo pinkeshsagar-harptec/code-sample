@@ -17,7 +17,7 @@ public class WSController {
 
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody Request request) {
-        webSocketPublisherService.startPublishing(request.getTopic());
+        webSocketPublisherService.startPublishing(request.getTopic(),request.getMessage());
         return ResponseEntity.ok("Successfully publishing on " + request.getTopic());
     }
 }

@@ -30,10 +30,8 @@ public class WebSocketPublisherService {
         return new DefaultHandshakeHandler(new TomcatRequestUpgradeStrategy());
     }
 
-    @Autowired
-    RegularPublisher regularPublisher;
-
-    public void startPublishing(String name) {
+    public void startPublishing(String name,String message) {
+        RegularPublisher regularPublisher = new RegularPublisher(message);
         ServerWebSocketContainer serverWebSocketContainer = new ServerWebSocketContainer(name)
                 .setHandshakeHandler(handshakeHandler())
                 .setAllowedOrigins("*").withSockJs();
@@ -60,9 +58,9 @@ public class WebSocketPublisherService {
     /*
     initialize websocket dynamically at start up time
      */
-    @PostConstruct
-    private void initializeWSAtStartup(){
-        startPublishing("/staticws");
-    }
+//    @PostConstruct
+//    private void initializeWSAtStartup(){
+//        startPublishing("/staticws");
+//    }
 
 }
